@@ -16,22 +16,27 @@ public class PlayerMovement : MonoBehaviour
     public float projectileSpeed = 6;
     private Rigidbody2D rb;
     public GameObject projectile;
-    private BoxCollider2D coll;
+    private CapsuleCollider2D coll;
     private SpriteRenderer renderer;
     [SerializeField] private Light2D spotLight;
+    public bool isControllsLocked = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<BoxCollider2D>();
+        coll = GetComponent<CapsuleCollider2D>();
         renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isControllsLocked == true)
+            return;
+
+
         inputDir = 0;
 
         if (Input.GetKey(KeyCode.A))
@@ -41,12 +46,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, coll.bounds.extents.y + 0.1f, LayerMask.GetMask("World"));
+            if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y - coll.bounds.extents.y - 0.05f), new Vector2(coll.size.x, 0.1f), 0f, LayerMask.GetMask("World")) != null) {
+                Debug.Log("jumping");
+                rb.AddForce(new Vector2(0f, jumpPower), ForceMode2D.Impulse);
+            }
+
+            /*RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, coll.bounds.extents.y + 0.5f, LayerMask.GetMask("World"));
             if (hit)
             {
                 Debug.Log("jumping");
                 rb.AddForce(new Vector2(0f, jumpPower), ForceMode2D.Impulse);
-            }
+            }*/
         }
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
