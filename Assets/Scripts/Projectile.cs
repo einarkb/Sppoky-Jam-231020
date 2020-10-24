@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public GameObject mainLight;
     public float lifeDuration = 5;
     public bool destroyOnHit = false;
+    public GameObject user { get; set; }
 
 
     void Start()
@@ -19,11 +20,15 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.gameObject.layer);
+        Debug.Log(gameObject.layer);
         if (destroyOnHit == true)
         {
             Destroy(mainLight);
             Destroy(GetComponent<Rigidbody2D>());
-            GetComponent<Collider>().enabled = false;
+            Collider coll = GetComponent<Collider>();
+            if (coll)
+                coll.enabled = false;
             
         }
     }

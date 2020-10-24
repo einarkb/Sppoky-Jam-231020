@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 336023735186882135}
   - component: {fileID: 2898266161914401921}
   - component: {fileID: -3360750767337754464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LightProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5cba62c32d76640ab1101270375a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainLight: {fileID: 7186309824530417450}
   lifeDuration: 3
   destroyOnHit: 1
 --- !u!58 &-3360750767337754464
@@ -98,7 +99,7 @@ GameObject:
   - component: {fileID: 440374538813138237}
   - component: {fileID: 440374538813138236}
   - component: {fileID: 440374538813138238}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4923,7 +4924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4150469622771253321}
   - component: {fileID: 7050183012344041037}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MainLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
