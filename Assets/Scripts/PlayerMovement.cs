@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using TreeEditor;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     public GameObject projectile;
     private BoxCollider2D coll;
+    private SpriteRenderer renderer;
+    [SerializeField] private Light2D spotLight;
 
 
     // Start is called before the first frame update
@@ -23,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -45,24 +49,37 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        Vector3 faceToaimDirection = mousePos - transform.position;
+        Vector2 faceToAimNormalized = new Vector2(faceToaimDirection.x, faceToaimDirection.y).normalized;
+
+        if (faceToAimNormalized.x < 0)
+        {
+            renderer.flipX = true;
+        }
+        else if (faceToAimNormalized.x > 0)
+        {
+            renderer.flipX = false;
+        }
+
+    
+
 
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Projectile proj = Instantiate(projectile)?.GetComponent<Projectile>();
             proj.user = gameObject;
             Rigidbody2D projRB = proj.GetComponent<Rigidbody2D>();
 
-            Vector3 direction = mousePos - transform.position;
-
-            projRB.transform.position = transform.position + direction.normalized * 2;
+            projRB.transform.position = transform.position + faceToaimDirection.normalized * 2;
      
 
             //Physics2D.OverlapBox(coll.bounds.center, coll.bounds.size, 0f, )
 
-            projRB.AddForce(new Vector2(direction.x, direction.y).normalized * projectileSpeed, ForceMode2D.Impulse);
+            projRB.AddForce(new Vector2(faceToaimDirection.x, faceToaimDirection.y).normalized * projectileSpeed, ForceMode2D.Impulse);
 
-            Debug.Log(direction);
+            Debug.Log(faceToaimDirection);
 
            
         }

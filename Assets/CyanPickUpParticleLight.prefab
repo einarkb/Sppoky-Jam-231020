@@ -46,7 +46,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 1
-  m_Color: {r: 0.9245283, g: 0.44918123, b: 0.44918123, a: 1}
+  m_Color: {r: 0.26900145, g: 0.85252064, b: 0.8773585, a: 1}
   m_Intensity: 0.29
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000097f3ffcbb223b473f9fbf60
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 7610201835803637400}
   - component: {fileID: 7610201835803637401}
   m_Layer: 0
-  m_Name: LightCircle 1
+  m_Name: CyanPickUpParticleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 17520ccf5edc51740b6a1f140aaa8eec, type: 3}
-  m_Color: {r: 0.9339623, g: 0.18943575, b: 0.18943575, a: 0.105882354}
+  m_Color: {r: 0.18823528, g: 0.8639835, b: 0.93333334, a: 0.105882354}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

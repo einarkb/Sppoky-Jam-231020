@@ -203,7 +203,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 1.2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -256,7 +256,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 1.4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4960,7 +4960,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.929
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8207547, g: 0.127759, b: 0.127759, a: 1}
   m_Intensity: 7.92
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000097f3ffcbb223b473f9fbf60
