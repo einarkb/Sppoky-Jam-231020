@@ -6,15 +6,21 @@ public class BallSpawner : MonoBehaviour
 {
     public Ball ballPrefab;
     public Vector2 spawnPosition;
+    public Vector2 intialVelocity = new Vector2(0f, 0f);
     private Ball activeBall = null;
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player") || collision.gameObject.layer == LayerMask.NameToLayer("FriendlyProjectile"))
         {
-            activeBall?.Kill();
+            if (activeBall != null)
+            {
+                activeBall.Kill();
+            }
             activeBall = Instantiate(ballPrefab, new Vector3(spawnPosition.x, spawnPosition.y, 0f), ballPrefab.transform.rotation);
+            activeBall.GetComponent<Rigidbody2D>().velocity = intialVelocity;
             activeBall.spawner = this;
 
             /*if (!activeBall)
