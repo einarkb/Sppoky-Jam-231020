@@ -48,7 +48,8 @@ public class PlayerMovement : MonoBehaviour
                 if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y - coll.bounds.extents.y - 0.05f), new Vector2(coll.size.x, 0.1f), 0f, LayerMask.GetMask("World")) != null)
                 {
                     Debug.Log("jumping");
-                    rb.AddForce(new Vector2(0f, jumpPower), ForceMode2D.Impulse);
+                    //rb.AddForce(new Vector2(0f, jumpPower), ForceMode2D.Impulse);
+                    rb.velocity = new Vector2(rb.velocity.x, jumpPower);
                 }
 
                 /*RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, coll.bounds.extents.y + 0.5f, LayerMask.GetMask("World"));
