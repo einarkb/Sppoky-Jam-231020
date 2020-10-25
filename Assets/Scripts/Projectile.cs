@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
         {
             Destroy(mainLight);
             Destroy(GetComponent<Rigidbody2D>());
-            Collider coll = GetComponent<Collider>();
+            Collider2D coll = GetComponent<Collider2D>();
             if (coll)
                 coll.enabled = false;
             
