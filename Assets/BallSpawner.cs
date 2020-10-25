@@ -13,7 +13,11 @@ public class BallSpawner : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player") || collision.gameObject.layer == LayerMask.NameToLayer("FriendlyProjectile"))
         {
-            if (!activeBall)
+            activeBall?.Kill();
+            activeBall = Instantiate(ballPrefab, new Vector3(spawnPosition.x, spawnPosition.y, 0f), ballPrefab.transform.rotation);
+            activeBall.spawner = this;
+
+            /*if (!activeBall)
             {
                 activeBall = Instantiate(ballPrefab, new Vector3(spawnPosition.x, spawnPosition.y, 0f), ballPrefab.transform.rotation);
                 activeBall.spawner = this;
@@ -24,7 +28,7 @@ public class BallSpawner : MonoBehaviour
                 rb.velocity = new Vector2(0f, 0f);
                 rb.MovePosition(spawnPosition);
             }
-            Debug.Log("spawned ball");
+            Debug.Log("spawned ball");*/
         }
     }
 

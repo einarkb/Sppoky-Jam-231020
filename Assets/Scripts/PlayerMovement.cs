@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Light2D spotLight;
     public bool isControllsLocked = false;
 
+    bool canFire = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-            if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
+            if (canFire && Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
             {
                 Projectile proj = Instantiate(projectile)?.GetComponent<Projectile>();
                 proj.user = gameObject;
@@ -87,9 +89,15 @@ public class PlayerMovement : MonoBehaviour
 
                 projRB.AddForce(new Vector2(faceToaimDirection.x, faceToaimDirection.y).normalized * projectileSpeed, ForceMode2D.Impulse);
 
-                Debug.Log(faceToaimDirection);
+                StartCoroutine(FireLock());
 
 
+            }
+
+            if (Input.GetMouseButtonDown((int)MouseButton.RightMouse))
+            {
+                GetComponent<SpecialLightManager>()?.SwitchLight();
+         
             }
         }
 
@@ -101,5 +109,12 @@ public class PlayerMovement : MonoBehaviour
       
         //transform.position += new Vector3(inputDir * speed * Time.deltaTime, 0, 0);
         //rb.AddForce(new Vector2(inputDir, 0), ForceMode2D.Force);
+    }
+
+    private IEnumerator FireLock()
+    {
+        canFire = false;
+        yield return new WaitForSeconds(0.4f);
+        canFire = true;
     }
 }

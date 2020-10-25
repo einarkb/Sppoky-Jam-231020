@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class SpecialLightManager : MonoBehaviour
 {
 
     public List<SpecialLight> speciallights = new List<SpecialLight>();
     public SpecialLight activeLight;
-    //public SpotLight
+    public Light2D playerPointLight;
 
     private int activeLightposition = -1;
 
@@ -25,17 +26,27 @@ public class SpecialLightManager : MonoBehaviour
         if (activeLight == null)
         {
             activeLight = speciallights[0];
+            GameManager.ChangeColorTiles(activeLight.colorName);
+            playerPointLight.color = activeLight.lightColor;
         }
-        //speciallights.IndexOf(activeLight)
-
-        if (activeLightposition >=  count)
+        else
         {
-            activeLightposition = 0;
+            int nextIndex = speciallights.IndexOf(activeLight) + 1;
+            if (nextIndex >= speciallights.Count)
+            {
+                nextIndex = 0;
+            }
+            if (nextIndex == speciallights.IndexOf(activeLight)) {
+                return;
+            }
+
+            activeLight = speciallights[nextIndex];
+            GameManager.ChangeColorTiles(activeLight.colorName);
+            playerPointLight.color = activeLight.lightColor;
         }
 
-        /* if specialLight.obtained 
-          
-         */
+        
+     
     }
 
     public void UseLight()

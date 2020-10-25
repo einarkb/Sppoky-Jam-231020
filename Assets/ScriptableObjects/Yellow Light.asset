@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88cb08354685a4f4981944594c7c0e04, type: 3}
-  m_Name: Cyan Light
+  m_Name: Yellow Light
   m_EditorClassIdentifier: 
-  colorName: Cyan
+  colorName: Yellow
   charges: 5
   cooldown: 1
-  lightColor: {r: 0.033018887, g: 0.9808651, b: 1, a: 0}
+  lightColor: {r: 1, g: 0.9618476, b: 0.031372547, a: 0}
   porjectile: {fileID: 0}

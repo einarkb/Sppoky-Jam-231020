@@ -8,6 +8,7 @@ public class SpecialLight : ScriptableObject
     public string colorName;
     public int charges;
     public int cooldown;
+    public Color lightColor;
 
     public GameObject porjectile;
     

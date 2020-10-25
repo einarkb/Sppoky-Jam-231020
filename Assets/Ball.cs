@@ -39,6 +39,7 @@ public class Ball : MonoBehaviour
 
     public void Kill()
     {
+        GetComponent<Collider2D>().enabled = false;
         StartCoroutine(FadeAndDestroy(0.12f));
     }
 
