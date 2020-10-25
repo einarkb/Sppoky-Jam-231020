@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BallGoal : MonoBehaviour
 {
+    public GameObject reactor;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,6 +14,7 @@ public class BallGoal : MonoBehaviour
             Debug.Log("Reached Goal");
             ball.ReachedGoal();
             GetComponent<ParticleSystem>().Stop();
+            reactor.GetComponent<ITriggerReactor>()?.Trigger();
         }
     }
 
