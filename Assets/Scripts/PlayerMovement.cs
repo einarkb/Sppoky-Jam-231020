@@ -33,65 +33,65 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isControllsLocked == true)
-            return;
-
-
         inputDir = 0;
-
-        if (Input.GetKey(KeyCode.A))
-            inputDir -= 1;
-        if (Input.GetKey(KeyCode.D))
-            inputDir += 1;
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isControllsLocked == false)
         {
-            if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y - coll.bounds.extents.y - 0.05f), new Vector2(coll.size.x, 0.1f), 0f, LayerMask.GetMask("World")) != null) {
-                Debug.Log("jumping");
-                rb.AddForce(new Vector2(0f, jumpPower), ForceMode2D.Impulse);
+
+            if (Input.GetKey(KeyCode.A))
+                inputDir -= 1;
+            if (Input.GetKey(KeyCode.D))
+                inputDir += 1;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y - coll.bounds.extents.y - 0.05f), new Vector2(coll.size.x, 0.1f), 0f, LayerMask.GetMask("World")) != null)
+                {
+                    Debug.Log("jumping");
+                    rb.AddForce(new Vector2(0f, jumpPower), ForceMode2D.Impulse);
+                }
+
+                /*RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, coll.bounds.extents.y + 0.5f, LayerMask.GetMask("World"));
+                if (hit)
+                {
+                    Debug.Log("jumping");
+                    rb.AddForce(new Vector2(0f, jumpPower), ForceMode2D.Impulse);
+                }*/
             }
 
-            /*RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, coll.bounds.extents.y + 0.5f, LayerMask.GetMask("World"));
-            if (hit)
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+            Vector3 faceToaimDirection = mousePos - transform.position;
+            Vector2 faceToAimNormalized = new Vector2(faceToaimDirection.x, faceToaimDirection.y).normalized;
+
+            if (faceToAimNormalized.x < 0)
             {
-                Debug.Log("jumping");
-                rb.AddForce(new Vector2(0f, jumpPower), ForceMode2D.Impulse);
-            }*/
-        }
-
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
-        Vector3 faceToaimDirection = mousePos - transform.position;
-        Vector2 faceToAimNormalized = new Vector2(faceToaimDirection.x, faceToaimDirection.y).normalized;
-
-        if (faceToAimNormalized.x < 0)
-        {
-            renderer.flipX = true;
-        }
-        else if (faceToAimNormalized.x > 0)
-        {
-            renderer.flipX = false;
-        }
-
-    
+                renderer.flipX = true;
+            }
+            else if (faceToAimNormalized.x > 0)
+            {
+                renderer.flipX = false;
+            }
 
 
-        if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
-        {
-            Projectile proj = Instantiate(projectile)?.GetComponent<Projectile>();
-            proj.user = gameObject;
-            Rigidbody2D projRB = proj.GetComponent<Rigidbody2D>();
 
-            projRB.transform.position = transform.position + faceToaimDirection.normalized * 2;
-     
 
-            //Physics2D.OverlapBox(coll.bounds.center, coll.bounds.size, 0f, )
+            if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
+            {
+                Projectile proj = Instantiate(projectile)?.GetComponent<Projectile>();
+                proj.user = gameObject;
+                Rigidbody2D projRB = proj.GetComponent<Rigidbody2D>();
 
-            projRB.AddForce(new Vector2(faceToaimDirection.x, faceToaimDirection.y).normalized * projectileSpeed, ForceMode2D.Impulse);
+                projRB.transform.position = transform.position + faceToaimDirection.normalized * 2;
 
-            Debug.Log(faceToaimDirection);
 
-           
+                //Physics2D.OverlapBox(coll.bounds.center, coll.bounds.size, 0f, )
+
+                projRB.AddForce(new Vector2(faceToaimDirection.x, faceToaimDirection.y).normalized * projectileSpeed, ForceMode2D.Impulse);
+
+                Debug.Log(faceToaimDirection);
+
+
+            }
         }
 
         rb.velocity = new Vector2(inputDir * speed, rb.velocity.y);

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public Map map;
+    public GameObject menu;
+    
 
     private void Awake()
     {
