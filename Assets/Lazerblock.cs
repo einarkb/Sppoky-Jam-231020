@@ -12,7 +12,7 @@ public class Lazerblock : MonoBehaviour, ITriggerReactor
         }
         else
         {
-            collision.GetComponent<Ball>().Kill();
+            collision.GetComponent<Ball>()?.Kill();
         }
     }
 

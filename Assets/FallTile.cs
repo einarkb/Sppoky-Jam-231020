@@ -33,7 +33,7 @@ public class FallTile : MonoBehaviour
 
         if ((player.transform.position.y - collision.collider.bounds.extents.y) >= (transform.position.y + coll.size.y / 2f))
         {
-            StartCoroutine(StartFalling());
+           GameManager.instance.StartCoroutine(StartFalling());
         }
     }
 
