@@ -13,7 +13,7 @@ public class LevelGoal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (entered == false) {
+        if (entered == false && collision.gameObject.GetComponent<Player>()) {
             entered = true;
             collision.gameObject.GetComponent<PlayerMovement>().isControllsLocked = true;
             StartCoroutine(Accend());
